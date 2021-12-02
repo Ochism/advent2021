@@ -1,24 +1,23 @@
+use aoc_runner_derive::{aoc, aoc_generator};
 use itertools::Itertools;
-use std::error::Error;
-use std::str::FromStr;
 
-pub fn run() -> Result<(), Box<dyn Error>> {
-    let input = include_str!("input.txt");
-    let mut values = vec![];
-    for l in input.lines() {
-        values.push(u32::from_str(l)?)
-    }
+#[aoc_generator(day1)]
+pub fn day1_gen(input: &str) -> Vec<u32> {
+    input.lines().flat_map(|l| l.parse::<u32>()).collect()
+}
 
-    let increases = values.iter().tuple_windows().filter(|(f, l)| l > f).count();
-    println!("Number of increases: {}", increases);
+#[aoc(day1, part1)]
+pub fn part1(input: &[u32]) -> usize {
+    input.iter().tuple_windows().filter(|(f, l)| l > f).count()
+}
 
-    let three_window = values
+#[aoc(day1, part2)]
+pub fn part2(input: &[u32]) -> usize {
+    input
         .iter()
         .tuple_windows()
         .map(|(n1, n2, n3)| n1 + n2 + n3)
         .tuple_windows()
         .filter(|(f, l)| l > f)
-        .count();
-    println!("Number of increases comparing 3 windows: {}", three_window);
-    Ok(())
+        .count()
 }
