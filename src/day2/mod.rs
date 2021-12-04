@@ -49,16 +49,16 @@ pub fn part1(input: &[Command]) -> isize {
 pub fn part1_for(input: &[Command]) -> isize {
     let mut depth = 0;
     let mut dist = 0;
-    for comm in input.iter() {
+    for comm in input {
         match comm.dir {
             Direction::Forward => {
-                dist = dist + comm.distance;
+                dist += comm.distance;
             }
             Direction::Up => {
-                depth = depth - comm.distance;
+                depth -= comm.distance;
             }
             Direction::Down => {
-                depth = depth + comm.distance;
+                depth += comm.distance;
             }
         }
     }
